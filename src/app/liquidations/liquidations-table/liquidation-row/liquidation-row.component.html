@@ -1,0 +1,18 @@
+<th *ngIf="liquidation" scope="row" class="px-6 py-4">
+    <a href="{{ liquidation.txHash | explorer:liquidation.chain }}">{{ liquidation.txHash }}</a>
+</th>
+<td *ngIf="liquidation" class="px-6 py-4">
+    {{ liquidation.chain }}
+</td>
+<td *ngIf="liquidation" class="px-6 py-4">
+    {{ liquidation.timestampMillies | date:'medium' }}
+</td>
+<td *ngIf="liquidation" class="px-6 py-4">
+    {{ liquidation.liquidationPrice | number:'1.2-4' }} {{ liquidation.collateralAsset.symbol }}/{{ liquidation.borrowedAsset.symbol }}
+</td>
+<td *ngIf="liquidation" class="px-6 py-4">
+    {{ liquidation.collateralAmount | units: liquidation.collateralAsset.decimals | number:'1.2-' + liquidation.collateralAsset.decimals }} {{ liquidation.collateralAsset.symbol }}
+</td>
+<td *ngIf="liquidation" class="px-6 py-4">
+    {{ liquidation.mimRepaid | number:'1.2-4' }} {{ liquidation.borrowedAsset.symbol }}
+</td>

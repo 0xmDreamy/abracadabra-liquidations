@@ -1,0 +1,23 @@
+query Liquidations ($liquidatee: String!){
+    liquidates (where: {liquidatee: $liquidatee}) {
+        hash
+        timestamp
+        amount
+        amountUSD
+        profitUSD
+        asset {
+            id
+            name
+            symbol
+            decimals
+        }
+        market {
+            inputToken {
+                id
+                name
+                symbol
+                decimals
+            }
+        }
+    }
+}

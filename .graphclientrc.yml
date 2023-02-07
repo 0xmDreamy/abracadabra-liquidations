@@ -1,0 +1,7 @@
+sources:
+  - name: messari-ethereum
+    handler:
+      graphql:
+        endpoint: https://api.thegraph.com/subgraphs/name/messari/abracadabra-money-ethereum
+documents:
+  - ./src/app/graphql/liquidations-query.graphql
