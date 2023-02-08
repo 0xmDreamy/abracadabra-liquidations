@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export const BLOCKCHAIN_EXPLORERS: Record<string, string> = {
   Ethereum: "https://etherscan.io/tx/",
-  Avalanche: "https://showtrace.io/tx/",
+  Avalanche: "https://snowtrace.io/tx/",
   Arbitrum: "https://arbiscan.io/tx/",
   Fantom: "https://ftmscan.com/tx/",
   Binance: "https://bscscan.com/tx/"
