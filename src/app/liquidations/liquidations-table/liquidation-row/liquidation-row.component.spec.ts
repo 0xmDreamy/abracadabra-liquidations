@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { LiquidationRowComponent } from './liquidation-row.component';
+import { LiquidationRowComponent } from './liquidation-row.component'
 
 describe('LiquidationRowComponent', () => {
-  let component: LiquidationRowComponent;
-  let fixture: ComponentFixture<LiquidationRowComponent>;
+  let component: LiquidationRowComponent
+  let fixture: ComponentFixture<LiquidationRowComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LiquidationRowComponent ]
-    })
-    .compileComponents();
+      declarations: [LiquidationRowComponent],
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(LiquidationRowComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(LiquidationRowComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

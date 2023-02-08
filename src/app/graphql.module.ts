@@ -1,14 +1,18 @@
-import {NgModule} from '@angular/core';
-import {ApolloModule, APOLLO_NAMED_OPTIONS, NamedOptions} from 'apollo-angular';
-import {InMemoryCache} from '@apollo/client/core';
-import {HttpLink} from 'apollo-angular/http';
+import { NgModule } from '@angular/core'
+import {
+  ApolloModule,
+  APOLLO_NAMED_OPTIONS,
+  NamedOptions,
+} from 'apollo-angular'
+import { InMemoryCache } from '@apollo/client/core'
+import { HttpLink } from 'apollo-angular/http'
 
 export const APOLLO_SUBGRAPH_NAMES: Record<string, string> = {
-  Ethereum: "messariEthereum",
-  Avalanche: "messariAvalanche",
-  Arbitrum: "messariArbitrum",
-  Fantom: "messariFantom",
-  Binance: "messariBsc"
+  Ethereum: 'messariEthereum',
+  Avalanche: 'messariAvalanche',
+  Arbitrum: 'messariArbitrum',
+  Fantom: 'messariFantom',
+  Binance: 'messariBsc',
 }
 
 export function createApollo(httpLink: HttpLink): NamedOptions {
@@ -42,8 +46,8 @@ export function createApollo(httpLink: HttpLink): NamedOptions {
       link: httpLink.create({
         uri: 'https://api.thegraph.com/subgraphs/name/messari/abracadabra-money-bsc',
       }),
-    }
-  };
+    },
+  }
 }
 
 @NgModule({

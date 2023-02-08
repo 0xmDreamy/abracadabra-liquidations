@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { mergeMap, Subscription } from 'rxjs';
-import { Liquidation, LiquidationsService } from '../liquidations.service';
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { mergeMap, Subscription } from 'rxjs'
+import { Liquidation, LiquidationsService } from '../liquidations.service'
 
 @Component({
   selector: 'app-liquidations',
   templateUrl: './liquidations.component.html',
-  styleUrls: ['./liquidations.component.css']
+  styleUrls: ['./liquidations.component.css'],
 })
 export class LiquidationsComponent implements OnInit, OnDestroy {
   liquidations: Liquidation[] = []
@@ -19,11 +19,15 @@ export class LiquidationsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.liquidationsSubscription = this.route.paramMap.pipe(
-      mergeMap(params => this.liquidationService.getLiquidations(params.get('address')!))
-    ).subscribe((liquidations) => {
-      this.liquidations = liquidations
-    })
+    this.liquidationsSubscription = this.route.paramMap
+      .pipe(
+        mergeMap((params) =>
+          this.liquidationService.getLiquidations(params.get('address')!)
+        )
+      )
+      .subscribe((liquidations) => {
+        this.liquidations = liquidations
+      })
   }
 
   ngOnDestroy(): void {

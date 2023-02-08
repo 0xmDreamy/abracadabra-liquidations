@@ -1,29 +1,27 @@
-<div class="relative overflow-x-auto md:rounded-lg" *ngIf="liquidations.length > 0">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-m text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    TX hash
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Chain
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Timestamp
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Liquidation price
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Collateral liquidated
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Debt repaid
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr app-liquidation-row class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let liquidation of liquidations" [liquidation]="liquidation"></tr>
-        </tbody>
-    </table>
+<div
+  class="relative overflow-x-auto md:rounded-lg"
+  *ngIf="liquidations.length > 0"
+>
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead
+      class="text-m text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3">TX hash</th>
+        <th scope="col" class="px-6 py-3">Chain</th>
+        <th scope="col" class="px-6 py-3">Timestamp</th>
+        <th scope="col" class="px-6 py-3">Liquidation price</th>
+        <th scope="col" class="px-6 py-3">Collateral liquidated</th>
+        <th scope="col" class="px-6 py-3">Debt repaid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        app-liquidation-row
+        class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700"
+        *ngFor="let liquidation of liquidations"
+        [liquidation]="liquidation"
+      ></tr>
+    </tbody>
+  </table>
 </div>

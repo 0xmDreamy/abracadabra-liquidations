@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { LiquidationsTableComponent } from './liquidations-table.component';
+import { LiquidationsTableComponent } from './liquidations-table.component'
 
 describe('LiquidationsTableComponent', () => {
-  let component: LiquidationsTableComponent;
-  let fixture: ComponentFixture<LiquidationsTableComponent>;
+  let component: LiquidationsTableComponent
+  let fixture: ComponentFixture<LiquidationsTableComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LiquidationsTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LiquidationsTableComponent],
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(LiquidationsTableComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(LiquidationsTableComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

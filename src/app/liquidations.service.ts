@@ -1,11 +1,11 @@
-import { LiquidationsDocument, LiquidationsQuery } from '.graphclient';
-import { Injectable } from '@angular/core';
-import { ApolloQueryResult } from '@apollo/client/core/types';
-import { Apollo } from 'apollo-angular';
-import { BigNumber } from 'ethers';
-import { formatUnits } from 'ethers/lib/utils';
-import { combineLatest, map, Observable } from 'rxjs';
-import { APOLLO_SUBGRAPH_NAMES } from './graphql.module';
+import { LiquidationsDocument, LiquidationsQuery } from '.graphclient'
+import { Injectable } from '@angular/core'
+import { ApolloQueryResult } from '@apollo/client/core/types'
+import { Apollo } from 'apollo-angular'
+import { BigNumber } from 'ethers'
+import { formatUnits } from 'ethers/lib/utils'
+import { combineLatest, map, Observable } from 'rxjs'
+import { APOLLO_SUBGRAPH_NAMES } from './graphql.module'
 
 export interface Liquidation {
   chain: string
@@ -26,51 +26,66 @@ export interface Asset {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LiquidationsService {
-
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {}
 
   getLiquidations(address: string): Observable<Liquidation[]> {
-    let liquidationsObsevables: Record<string, Observable<ApolloQueryResult<LiquidationsQuery>>> = {}
+    let liquidationsObsevables: Record<
+      string,
+      Observable<ApolloQueryResult<LiquidationsQuery>>
+    > = {}
     for (const chain in APOLLO_SUBGRAPH_NAMES) {
       const subgraphName = APOLLO_SUBGRAPH_NAMES[chain]
 
       liquidationsObsevables[chain] = this.apollo.use(subgraphName).query({
         query: LiquidationsDocument,
         variables: {
-          liquidatee: address.toLowerCase()
-        }
+          liquidatee: address.toLowerCase(),
+        },
       })
     }
     const combinedLiquidationObservables = combineLatest(liquidationsObsevables)
 
-    return combinedLiquidationObservables.pipe(map((results) => {
-      return Object.entries(results).flatMap(([chain, liquidations]) => {
-        return liquidations.data.liquidates.map((liquidation): Liquidation => {
-          return {
-            chain: chain,
-            txHash: liquidation.hash,
-            timestampMillies: liquidation.timestamp * 1000,
-            liquidationPrice: (liquidation.amountUSD - liquidation.profitUSD)/(Number(formatUnits(BigNumber.from(liquidation.amount), liquidation.market.inputToken.decimals))),
-            collateralAmount: BigNumber.from(liquidation.amount),
-            mimRepaid: liquidation.amountUSD - liquidation.profitUSD,
-            borrowedAsset: {
-              contractAddress: liquidation.asset.id,
-              name: liquidation.asset.name,
-              symbol: liquidation.asset.symbol,
-              decimals: liquidation.asset.decimals
-            },
-            collateralAsset: {
-              contractAddress: liquidation.market.inputToken.id,
-              name: liquidation.market.inputToken.name,
-              symbol: liquidation.market.inputToken.symbol,
-              decimals: liquidation.market.inputToken.decimals
-            }
-          }
-        })
-      }).sort((a, b) => b.timestampMillies - a.timestampMillies)
-    }))
+    return combinedLiquidationObservables.pipe(
+      map((results) => {
+        return Object.entries(results)
+          .flatMap(([chain, liquidations]) => {
+            return liquidations.data.liquidates.map(
+              (liquidation): Liquidation => {
+                return {
+                  chain: chain,
+                  txHash: liquidation.hash,
+                  timestampMillies: liquidation.timestamp * 1000,
+                  liquidationPrice:
+                    (liquidation.amountUSD - liquidation.profitUSD) /
+                    Number(
+                      formatUnits(
+                        BigNumber.from(liquidation.amount),
+                        liquidation.market.inputToken.decimals
+                      )
+                    ),
+                  collateralAmount: BigNumber.from(liquidation.amount),
+                  mimRepaid: liquidation.amountUSD - liquidation.profitUSD,
+                  borrowedAsset: {
+                    contractAddress: liquidation.asset.id,
+                    name: liquidation.asset.name,
+                    symbol: liquidation.asset.symbol,
+                    decimals: liquidation.asset.decimals,
+                  },
+                  collateralAsset: {
+                    contractAddress: liquidation.market.inputToken.id,
+                    name: liquidation.market.inputToken.name,
+                    symbol: liquidation.market.inputToken.symbol,
+                    decimals: liquidation.market.inputToken.decimals,
+                  },
+                }
+              }
+            )
+          })
+          .sort((a, b) => b.timestampMillies - a.timestampMillies)
+      })
+    )
   }
 }
