@@ -12,6 +12,7 @@ export interface Liquidation {
   txHash: string
   timestampMillies: number
   liquidationPrice: number
+  oraclePrice: number
   collateralAmount: BigNumber
   mimRepaid: number
   borrowedAsset: Asset
@@ -54,20 +55,22 @@ export class LiquidationsService {
           .flatMap(([chain, liquidations]) => {
             return liquidations.data.liquidates.map(
               (liquidation): Liquidation => {
+                const mimRepaid = liquidation.amountUSD - liquidation.profitUSD
+                const collateralAmount = BigNumber.from(liquidation.amount)
+                const collateralAmountFormatted = formatUnits(
+                  collateralAmount,
+                  liquidation.market.inputToken.decimals
+                )
+                const liquidationPrice = mimRepaid / +collateralAmountFormatted
+                const oraclePrice = liquidation.amountUSD / +collateralAmountFormatted
                 return {
                   chain: chain,
                   txHash: liquidation.hash,
                   timestampMillies: liquidation.timestamp * 1000,
-                  liquidationPrice:
-                    (liquidation.amountUSD - liquidation.profitUSD) /
-                    Number(
-                      formatUnits(
-                        BigNumber.from(liquidation.amount),
-                        liquidation.market.inputToken.decimals
-                      )
-                    ),
-                  collateralAmount: BigNumber.from(liquidation.amount),
-                  mimRepaid: liquidation.amountUSD - liquidation.profitUSD,
+                  liquidationPrice: liquidationPrice,
+                  oraclePrice,
+                  collateralAmount,
+                  mimRepaid,
                   borrowedAsset: {
                     contractAddress: liquidation.asset.id,
                     name: liquidation.asset.name,
