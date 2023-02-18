@@ -8,18 +8,17 @@ import { Liquidation, LiquidationsService } from '../liquidations.service'
   selector: 'app-liquidations',
   templateUrl: './liquidations.component.html',
   styleUrls: ['./liquidations.component.css'],
-  
 })
 export class LiquidationsComponent implements OnInit, OnDestroy {
   liquidations: Liquidation[] | null = null
   private liquidationsSubscription: Subscription | null = null
 
-  currentAddress: string = ""
+  currentAddress: string = ''
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private liquidationService: LiquidationsService,
+    private liquidationService: LiquidationsService
   ) {}
 
   ngOnInit(): void {

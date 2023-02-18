@@ -1,7 +1,9 @@
 <th *ngIf="liquidation" scope="row" class="px-6 py-4">
-  <a class="block truncate w-40 2xl:w-60" href="{{ liquidation.txHash | explorer : liquidation.chain }}">{{
-    liquidation.txHash
-  }}</a>
+  <a
+    class="block truncate w-40 2xl:w-60"
+    href="{{ liquidation.txHash | explorer : liquidation.chain }}"
+    >{{ liquidation.txHash }}</a
+  >
 </th>
 <td *ngIf="liquidation" class="px-6 py-4 whitespace-nowrap">
   {{ liquidation.chain }}
@@ -14,14 +16,20 @@
     liquidation.collateralAmount
       | units : liquidation.collateralAsset.decimals
       | number : "1.2-" + liquidation.collateralAsset.decimals
-  }} {{ liquidation.collateralAsset.symbol }}
+  }}
+  {{ liquidation.collateralAsset.symbol }}
 </td>
 <td *ngIf="liquidation" class="px-6 py-4 whitespace-nowrap">
-  {{ liquidation.mimRepaid | number : "1.2-4" }} {{ liquidation.borrowedAsset.symbol }}
+  {{ liquidation.mimRepaid | number : "1.2-4" }}
+  {{ liquidation.borrowedAsset.symbol }}
 </td>
 <td *ngIf="liquidation" class="px-6 py-4 whitespace-nowrap">
-  {{ liquidation.liquidationPrice | number : "1.2-4" }} {{liquidation.collateralAsset.symbol }}/{{ liquidation.borrowedAsset.symbol}}
+  {{ liquidation.liquidationPrice | number : "1.2-4" }}
+  {{ liquidation.collateralAsset.symbol }}/{{
+    liquidation.borrowedAsset.symbol
+  }}
 </td>
 <td *ngIf="liquidation" class="px-6 py-4 whitespace-nowrap">
-  {{ liquidation.oraclePrice | number : "1.2-4" }} {{liquidation.collateralAsset.symbol }}/USD
+  {{ liquidation.oraclePrice | number : "1.2-4" }}
+  {{ liquidation.collateralAsset.symbol }}/USD
 </td>

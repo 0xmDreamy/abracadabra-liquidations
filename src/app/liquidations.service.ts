@@ -62,7 +62,8 @@ export class LiquidationsService {
                   liquidation.market.inputToken.decimals
                 )
                 const liquidationPrice = mimRepaid / +collateralAmountFormatted
-                const oraclePrice = liquidation.amountUSD / +collateralAmountFormatted
+                const oraclePrice =
+                  liquidation.amountUSD / +collateralAmountFormatted
                 return {
                   chain: chain,
                   txHash: liquidation.hash,
