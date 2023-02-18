@@ -1,18 +1,20 @@
-<div class="flex bg-slate-200 dark:bg-slate-900 min-h-screen">
+<div class="flex bg-slate-200 dark:bg-slate-900 min-h-screen" [class.md:items-center]="!currentAddress">
   <div class="container mx-auto">
     <div class="flex justify-center">
       <h1
-        class="mb-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white py-12"
+        class="mb-4 text-center font-extrabold leading-none tracking-tight text-gray-900 dark:text-white"
+        [ngClass]="currentAddress ? 'text-4xl md:text-5xl lg:text-6xl py-12' : 'text-6xl pt-24 pb-12 md:pt-0 md:pb-0'"
       >
         Abracadabra Liquidations
       </h1>
     </div>
     <div class="flex justify-center">
-      <div class="w-full md:w-1/2 lg:w-1/3 py-8">
-        <app-address-field (address)="onNewAddress($event)"></app-address-field>
+      <div class="w-full md:w-1/2 lg:w-5/12 2xl:w-2/5 py-8">
+        <app-address-field [addressOrEns]="currentAddress" (address)="onNewAddress($event)"></app-address-field>
       </div>
     </div>
     <app-liquidations-table
+      *ngIf="liquidations"
       [liquidations]="liquidations"
     ></app-liquidations-table>
   </div>

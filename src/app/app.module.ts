@@ -9,10 +9,9 @@ import { FormsModule } from '@angular/forms'
 import { UnitsPipe } from './units.pipe'
 import { ExplorerPipe } from './explorer.pipe'
 import { AppComponent } from './app.component'
-import { AddressFieldComponent } from './shared/address-field/address-field.component'
+import { AddressFieldComponent } from './liquidations/address-field/address-field.component'
 import { LiquidationsTableComponent } from './liquidations/liquidations-table/liquidations-table.component'
 import { LiquidationRowComponent } from './liquidations/liquidations-table/liquidation-row/liquidation-row.component'
-import { LandingComponent } from './landing/landing.component'
 import { LiquidationsComponent } from './liquidations/liquidations.component'
 
 @NgModule({
@@ -21,7 +20,6 @@ import { LiquidationsComponent } from './liquidations/liquidations.component'
     AddressFieldComponent,
     LiquidationsTableComponent,
     LiquidationRowComponent,
-    LandingComponent,
     LiquidationsComponent,
     UnitsPipe,
     ExplorerPipe,

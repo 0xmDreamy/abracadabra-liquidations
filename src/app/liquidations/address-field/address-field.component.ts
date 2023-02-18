@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core'
 import { from, Subscription } from 'rxjs'
 import { AddressService } from 'src/app/address.service'
 
@@ -9,14 +9,18 @@ import { AddressService } from 'src/app/address.service'
 })
 export class AddressFieldComponent implements OnDestroy {
   @Output() address = new EventEmitter<string | null>()
+  @Input() addressOrEns: string = ""
 
+  isLoading: boolean = false
   private addressServiceSubscription: Subscription | null = null
 
   constructor(private addressService: AddressService) {}
 
-  onSubmit(addressOrEns: string): void {
+  onSubmit(): void {
     this.addressServiceSubscription?.unsubscribe()
-    from(this.addressService.getAddress(addressOrEns)).subscribe((address) => {
+    this.isLoading = true
+    from(this.addressService.getAddress(this.addressOrEns)).subscribe((address) => {
+      this.isLoading = false
       this.address.emit(address)
     })
   }
